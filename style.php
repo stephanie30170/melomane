@@ -126,7 +126,7 @@ foreach ($stylegenre as $key => $value) {
 <?php
 
 if (isset($_POST['ajouter'])) {
-    $post_name = $_POST['style_name'];
+    $post_name = ucfirst( $_POST['style_name']);
     $post_genre_id = $_POST['choix'];
 
     $requete = "INSERT INTO `styles` (`style_name`, `style_genre_id`)

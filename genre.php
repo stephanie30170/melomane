@@ -40,7 +40,7 @@ try {
 }
 //Ajouter un nouveau genre
 if (isset($_POST['ajouter'])) {
-    $genre_name = $_POST['genre_name'];
+    $genre_name = ucfirst($_POST['genre_name']);
 
     $requete = "INSERT INTO `genres` (`genre_name`)
                 VALUES (:genre_name);";
@@ -81,14 +81,14 @@ if (isset($_GET['id'])) {
         <th>Modifier</th>
     </thead>
     <?php
-$requete = 'SELECT * FROM `genres` ';
+$requete = 'SELECT * FROM `genres` ORDER BY genre_name ASC';
 $prepare = $connexion->prepare($requete);
 $prepare->execute();
 $resultat = $prepare->fetchAll();
 foreach ($resultat as $genre) {
     ?>
             <tr>
-                <td><?=$genre['genre_name']?></td>
+                <td><?=(htmlentities($genre['genre_name']))?></td>
                 <td><button type="submit" ><a href="genre.php?id=<?=$genre['genre_id']?>"><img src="image/supprimer.png" alt ="poubelle" class="picture" ></a></button></td>
                 <td><button type="submit" ><a href="genre.php?genre_id=<?=$genre['genre_id']?>"><img src="image/modifier.png" alt ="crayon" class="picture" ></a></button>
                 </td>
