@@ -3,8 +3,8 @@
 
     const DB_HOST    = "localhost";
     const DB_NAME    = "cameron";
-    const DB_LOGIN   = "stephanie";
-    const DB_PASS    = "fif30170simplon!!!";
+    const DB_LOGIN   = "******";
+    const DB_PASS    = "*******";
 
     const DB_DRIVER  = "mysql";
     const DB_CHARSET = "utf8mb4";
