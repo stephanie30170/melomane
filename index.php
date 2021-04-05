@@ -52,7 +52,7 @@ $assostyles = $prepare->fetchAll();
 
 //Ajouter un nouvel artiste
 if (isset($_POST['ajouter'])) {
-    $artiste_name = $_POST['artiste_name'];
+    $artiste_name = ucfirst($_POST['artiste_name']);
 
     $requete = "INSERT INTO `artiste` (`artiste_name`)
                 VALUES (:artiste_name);";
@@ -95,7 +95,7 @@ if (isset($_GET['id'])) {
 <?php
 
 //requete de READ ALL
-$requete = 'SELECT artiste_id, artiste_name, style_name, style_id, genre_name FROM assoc_styles_artiste JOIN artiste ON artiste_id=assoc_a_id JOIN styles on style_id=assoc_s_id JOIN genres ON genre_id = style_genre_id;';
+$requete = 'SELECT artiste_id, artiste_name, style_name, style_id, genre_name FROM assoc_styles_artiste JOIN artiste ON artiste_id=assoc_a_id JOIN styles on style_id=assoc_s_id JOIN genres ON genre_id = style_genre_id ORDER BY artiste_name ASC';
 $prepare = $connexion->prepare($requete);
 $prepare->execute();
 $assoc = $prepare->fetchAll();
@@ -120,13 +120,6 @@ foreach ($assoc as $key => $value) {
 <form method="post" >
         <label>Nom de l'artiste</label>
         <input type="text" name="artiste_name" required>
-        <select name="assoc_style_id" required>
-        <option value=""> -- Choisissez un style svp -- </option>
-        <?php foreach ($assostyles as $listestyle) {?>
-        <option value=<?=(htmlentities($listestyle['style_id'], ENT_QUOTES))?>><?=$listestyle['style_name']?></option>
-        <?php }?>
-        </select>
-
     <button type="submit" name= "ajouter" value= "ajouter">Ajouter</button>
 </form>
 
@@ -153,7 +146,7 @@ if (isset($_POST['associer'])) {
     $post_style_id = $_POST['assoc_style_id'];
     $post_artiste_id = $_POST['assoc_artiste_id'];
 
-    $requete = "INSERT INTO `assoc_styles_artiste` (`assoc_S_id`, `assoc_a_id`)
+    $requete = "INSERT INTO `assoc_styles_artiste` (`assoc_s_id`, `assoc_a_id`)
                 VALUES (:assoc_s_id, :assoc_a_id);";
     $prepare = $connexion->prepare($requete);
     $prepare->execute(array(
